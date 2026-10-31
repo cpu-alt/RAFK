@@ -73,3 +73,7 @@ python -m unittest discover -s tests -v
 
 Les outils anti-AFK sont tolérés en pratique mais vont techniquement contre
 les conditions d'utilisation de Roblox. À utiliser en connaissance de cause.
+
+## Licence
+
+[MIT](LICENSE) © cpu-alt
