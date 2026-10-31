@@ -1,17 +1,54 @@
-# Copy to config.toml and adjust.
+# Copie ce fichier en config.toml et adapte-le.
+# Tout est optionnel : sans config.toml, ces valeurs par défaut sont utilisées.
 
-# Roblox kicks after 20 min of inactivity: keep this under 1200.
-interval_seconds = 600
-jitter_seconds = 60
+# --- Anti-AFK ---------------------------------------------------------------
 
-# Keys picked at random for each nudge: space, w, a, s, d, i, o
-keys = ["space"]
+# Roblox déconnecte après 20 min (1200 s) sans input.
+interval_seconds = 600        # une action toutes les ~10 min
+jitter_seconds = 60           # ± aléatoire pour ne pas être trop régulier
 
-process_name = "RobloxPlayerBeta.exe"
+# Actions tirées au hasard à chaque fois :
+#   jump    saut
+#   walk    avance puis recule
+#   strafe  gauche puis droite
+#   camera  tourne la caméra (flèches) puis revient
+#   zoom    zoom avant puis arrière
+#   key:<touche>  une touche brute : space w a s d i o left right
+actions = ["jump", "camera"]
 
-# Give focus back to the window you were using after each nudge.
-restore_focus = true
+# Si tu utilises le PC, RAFK attend que tu sois inactif depuis X secondes
+# avant de prendre le focus… sauf s'il approche du kick : il force alors l'action.
+user_idle_seconds = 30
+force_after_seconds = 1080    # doit rester < 1200
 
-# Optional: launch this place on start (same as --place).
-# launch_place_id = 1234567890
-launch_wait_seconds = 30
+restore_focus = true          # rend le focus à ta fenêtre après l'action
+restore_minimized = true      # re-minimise Roblox s'il l'était
+
+process_names = ["RobloxPlayerBeta.exe"]
+
+# --- Lancement & reconnexion -------------------------------------------------
+
+# ID du jeu (le nombre dans l'URL roblox.com/games/<ID>/...). Équivaut à --place.
+# place_id = 920587237
+
+auto_rejoin = true            # relance le jeu si Roblox se ferme / crash
+rejoin_after_seconds = 30     # délai sans fenêtre avant de relancer
+hang_timeout_seconds = 90     # Roblox figé depuis X s -> tué puis relancé
+launch_wait_seconds = 90
+
+# Expérimental : lit les logs Roblox pour détecter « Disconnected » (erreur 277…)
+# et relancer même si la fenêtre reste ouverte. Nécessite place_id.
+detect_disconnect = false
+# Motifs cherchés dans les logs (277/279 = connexion perdue, 267 = kick) :
+# disconnect_patterns = ["Lost connection with reason", "Sending disconnect with reason: 277"]
+
+# --- Confort -----------------------------------------------------------------
+
+prevent_sleep = true          # empêche le PC de se mettre en veille
+pause_hotkey = "F8"           # F1..F24, "" pour désactiver
+
+# Notifications Discord (Paramètres du salon > Intégrations > Webhooks)
+discord_webhook = ""
+
+# Fichier de log (vide = console seulement)
+log_file = ""
