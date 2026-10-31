@@ -1,0 +1,17 @@
+# Copy to config.toml and adjust.
+
+# Roblox kicks after 20 min of inactivity: keep this under 1200.
+interval_seconds = 600
+jitter_seconds = 60
+
+# Keys picked at random for each nudge: space, w, a, s, d, i, o
+keys = ["space"]
+
+process_name = "RobloxPlayerBeta.exe"
+
+# Give focus back to the window you were using after each nudge.
+restore_focus = true
+
+# Optional: launch this place on start (same as --place).
+# launch_place_id = 1234567890
+launch_wait_seconds = 30
